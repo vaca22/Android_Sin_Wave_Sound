@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        btnStop.setOnClickListener(this);
 
         SoundPlayer ga=new SoundPlayer(this);
+        ga.play();
     }
 
 

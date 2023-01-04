@@ -104,10 +104,13 @@ public class SoundPlayer {
     }
 
     public synchronized void generate() {
+        Log.e("fuck","gg1");
         if (this._audio == null) {
             return;
         }
+        Log.e("fuck","gg299");
         loadAudioBuffer();
+        Log.e("fuck","gg499");
         short[] audio = getAudio();
         this._audio.write(audio, 0, audio.length);
         loadAudioBuffer();
@@ -117,7 +120,9 @@ public class SoundPlayer {
         short[] audio3 = getAudio();
         this._audio.write(audio3, 0, audio3.length);
         this._stoped = false;
+        Log.e("fuck","gg49");
         this._audio.play();
+        Log.e("fuck","gg4");
     }
 
     /* JADX INFO: Access modifiers changed from: private */
@@ -149,6 +154,7 @@ public class SoundPlayer {
         this._mixer.clearBus();
         double[] bus = this._mixer.getBus();
         int length = bus.length;
+        Log.e("hh","dada"+length);
         int length2 = this._generators.length;
         int i = 0;
         while (true) {
@@ -185,6 +191,7 @@ public class SoundPlayer {
         this._isPlaying = true;
         this._mixer.start();
         this._thread = new AudioThread();
+        Log.e("fuck","hh1");
         this._thread.start();
     }
 
@@ -625,19 +632,25 @@ public class SoundPlayer {
     /* loaded from: classes.dex */
     protected class AudioRunnable implements Runnable {
         protected AudioRunnable() {
+            Log.e("fuck","gg13");
         }
 
         @Override // java.lang.Runnable
         public void run() {
+            Log.e("fuck","gg12");
             SoundPlayer.this.generate();
         }
     }
 
     /* loaded from: classes.dex */
     protected class AudioThread extends Thread {
-        public AudioThread() {
-            super(new AudioRunnable());
+        @Override
+        public void run() {
+            Log.e("fuck","gg17");
+            new AudioRunnable().run();
         }
+
+
     }
 
     /* JADX INFO: Access modifiers changed from: protected */
@@ -663,6 +676,7 @@ public class SoundPlayer {
                 Looper.prepare();
                 this._handler = new Handler();
                 SoundPlayer.this.initAudioFeed(this._handler, this._notifyPeriod);
+                Log.e("fuck","Loop");
                 Looper.loop();
             } catch (Throwable unused) {
             }
@@ -673,6 +687,7 @@ public class SoundPlayer {
     /* loaded from: classes.dex */
     public class AudioPosListener implements AudioTrack.OnPlaybackPositionUpdateListener {
         protected AudioPosListener() {
+            Log.e("fuck","gaga");
         }
 
         @Override // android.media.AudioTrack.OnPlaybackPositionUpdateListener
@@ -681,6 +696,7 @@ public class SoundPlayer {
 
         @Override // android.media.AudioTrack.OnPlaybackPositionUpdateListener
         public void onPeriodicNotification(AudioTrack audioTrack) {
+            Log.e("fuck","gaga");
             SoundPlayer.this.feed();
         }
     }
