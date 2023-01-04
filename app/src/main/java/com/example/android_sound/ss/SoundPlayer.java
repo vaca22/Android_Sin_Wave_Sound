@@ -156,6 +156,7 @@ public class SoundPlayer {
         int length = bus.length;
         Log.e("hh","dada"+length);
         int length2 = this._generators.length;
+        Log.e("hh","dada"+length2);
         int i = 0;
         while (true) {
             int i2 = i + 1;
@@ -175,6 +176,8 @@ public class SoundPlayer {
                 }
                 this._framePos++;
                 i += 2;
+            }else{
+                break;
             }
         }
     }
