@@ -47,6 +47,7 @@ public class SoundPlayer {
 
     public boolean isAnyGeneratorOn() {
         if (this._generators == null) {
+            Log.e("fuck","n16");
             return false;
         }
         int length = this._generators.length;
@@ -139,11 +140,14 @@ public class SoundPlayer {
         loadAudioBuffer();
         short[] audio4 = getAudio();
         this._audio.write(audio4, 0, audio4.length);
-        if (!isAnyGeneratorOn()) {
-            stopPrv();
-        } else if (this._mixer.isOut()) {
-            stopPrv();
-        }
+        Log.e("fuck","n1");
+//        if (!isAnyGeneratorOn()) {
+//            Log.e("fuck","n12");
+//            stopPrv();
+//        } else if (this._mixer.isOut()) {
+//            Log.e("fuck","n13");
+//            stopPrv();
+//        }
     }
 
     private short[] getAudio() {
@@ -699,7 +703,7 @@ public class SoundPlayer {
 
         @Override // android.media.AudioTrack.OnPlaybackPositionUpdateListener
         public void onPeriodicNotification(AudioTrack audioTrack) {
-            Log.e("fuck","gaga");
+            Log.e("fuck","gagayes");
             SoundPlayer.this.feed();
         }
     }
