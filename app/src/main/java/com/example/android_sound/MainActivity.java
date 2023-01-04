@@ -7,6 +7,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.android_sound.ss.SoundPlayer;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private PlayThread mPlayThread;
 
@@ -22,11 +24,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnLeft = (Button) findViewById(R.id.btn_left);
         btnRight = (Button) findViewById(R.id.btn_right);
         btnStop = (Button) findViewById(R.id.btn_stop);
-        btnPlay.setOnClickListener(this);
-        btnLeft.setOnClickListener(this);
-        btnRight.setOnClickListener(this);
-        btnStop.setOnClickListener(this);
+//        btnPlay.setOnClickListener(this);
+//        btnLeft.setOnClickListener(this);
+//        btnRight.setOnClickListener(this);
+//        btnStop.setOnClickListener(this);
 
+        SoundPlayer ga=new SoundPlayer(this);
     }
 
 

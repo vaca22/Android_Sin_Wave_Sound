@@ -499,13 +499,6 @@ public class SoundPlayer {
         return false;
     }
 
-    public Generator getGenerator(int i) {
-        if (this._generators != null && i >= 0 && i < this._generators.length) {
-            return this._generators[i];
-        }
-        return null;
-    }
-
     public void resetGenerators() {
         try {
             int length = this._generators.length;
