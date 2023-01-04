@@ -51,7 +51,6 @@ public class SoundPlayer {
         protected int _notifyPeriod;
 
         public FeedThread(int i) {
-            this._notifyPeriod = 0;
             this._notifyPeriod = i;
         }
 
@@ -194,18 +193,6 @@ public class SoundPlayer {
             this._wasNegative = false;
         }
 
-        public void addToBuf(double[] dArr) {
-            if (this._bOn) {
-                if (this._type == 1) {
-                    addSquireToBuf(dArr);
-                } else if (this._type == 2) {
-                    addUpToBuf(dArr);
-                } else {
-                    addSinToBuf(dArr);
-                }
-            }
-        }
-
         public short nextSample() {
             if (this._bOn) {
                 if (this._type == 1) {
@@ -238,40 +225,6 @@ public class SoundPlayer {
         public void stop() {
             this._fadeOut = true;
             this._fadeOutCounter = 0;
-        }
-
-        private void addSinToBuf(double[] dArr) {
-            double d=getMaxA();
-            int length = dArr.length;
-            short maxA = getMaxA();
-            int i = 0;
-            while (true) {
-                int i2 = i + 1;
-                if (i2 >= length) {
-                    return;
-                }
-                double d2 = this._framePos;
-                Double.isNaN(d2);
-                double sin = Math.sin((d2 * 2.2675736961451248E-5d * 2.0d * 3.141592653589793d * this._frequency) + this._alphaError + this._faze);
-                Double.isNaN(maxA);
-                short s = (short) (d * sin);
-                this._framePos++;
-                if (this._changeF) {
-                    if (s < 0) {
-                        this._wasNegative = true;
-                    } else if (this._wasNegative) {
-                        changeFrequency(sin);
-                    }
-                }
-                double d3 = dArr[i];
-                double d4 = s;
-                Double.isNaN(d4);
-                dArr[i] = d3 + d4;
-                double d5 = dArr[i2];
-                Double.isNaN(d4);
-                dArr[i2] = d5 + d4;
-                i += 2;
-            }
         }
 
         private short nextSinSample() {
@@ -338,46 +291,6 @@ public class SoundPlayer {
                 }
             }
             return s;
-        }
-
-        private void addSquireToBuf(double[] dArr) {
-            double d= getMaxA();
-            short s;
-            int length = dArr.length;
-            short maxA = getMaxA();
-            int i = 0;
-            while (true) {
-                int i2 = i + 1;
-                if (i2 >= length) {
-                    return;
-                }
-                double d2 = this._framePos;
-                Double.isNaN(d2);
-                double sin = Math.sin((d2 * 2.2675736961451248E-5d * 2.0d * 3.141592653589793d * this._frequency) + this._alphaError + this._faze);
-                Double.isNaN(maxA);
-                short s2 = (short) (d * sin);
-                this._framePos++;
-                if (this._changeF) {
-                    if (s2 < 0) {
-                        this._wasNegative = true;
-                    } else if (this._wasNegative) {
-                        changeFrequency(sin);
-                    }
-                }
-                if (sin > DOUBLE_PRECISION) {
-                    s = maxA;
-                } else {
-                    s = sin < DOUBLE_PRECISION ? (short) (-maxA) : (short) 0;
-                }
-                double d3 = dArr[i];
-                double d4 = s;
-                Double.isNaN(d4);
-                dArr[i] = d3 + d4;
-                double d5 = dArr[i2];
-                Double.isNaN(d4);
-                dArr[i2] = d5 + d4;
-                i += 2;
-            }
         }
 
         private short nextSquireSample() {
@@ -449,85 +362,6 @@ public class SoundPlayer {
                 }
             }
             return (short) 0;
-        }
-
-        private void addUpToBuf(double[] dArr) {
-            double d;
-            double d2;
-            long j;
-            long j2;
-            short s;
-            double d3;
-            double d4;
-            double d5;
-            int length = dArr.length;
-            short maxA = getMaxA();
-            double d6 = 1.0d / this._frequency;
-            double d7 = (this._faze * d6) / 6.283185307179586d;
-            int i = 0;
-            while (true) {
-                int i2 = i + 1;
-                if (i2 >= length) {
-                    return;
-                }
-                double d8 = this._framePos;
-                Double.isNaN(d8);
-                double d9 = d8 * 2.2675736961451248E-5d;
-                double sin = Math.sin((d9 * 2.0d * 3.141592653589793d * this._frequency) + this._alphaError);
-                double d10 = d6;
-                d= ((d9 / d6) + d7);
-                d2=(int)((d9 / d6) + d7);
-                double d11 = maxA;
-                Double.isNaN(d11);
-                Double.isNaN(d11);
-                short s2 = (short) ((((d - d2) * 2.0d) * d11) - d11);
-                int i3 = length;
-                short s3 = maxA;
-                this._framePos++;
-                if (this._changeF) {
-                    if (sin < 0.0d) {
-                        this._wasNegative = true;
-                    } else if (this._wasNegative) {
-                        changeFrequency(sin);
-                        j = 4607182418800017408L;
-                        d3 = 1.0d / this._frequency;
-                        j2 = 4618760256179416344L;
-                        double d12 = (this._faze * d3) / 6.283185307179586d;
-                        d4= ((d9 / d3) + d12);
-                        d5=((long) ((d9 / d3) + d12));
-                        Double.isNaN(d11);
-                        Double.isNaN(d11);
-                        s = (short) ((((d4 - d5) * 2.0d) * d11) - d11);
-                        d7 = d12;
-                        double d13 = dArr[i];
-                        double d14 = s;
-                        Double.isNaN(d14);
-                        dArr[i] = d13 + d14;
-                        double d15 = dArr[i2];
-                        Double.isNaN(d14);
-                        dArr[i2] = d15 + d14;
-                        i += 2;
-                        d6 = d3;
-                        length = i3;
-                        maxA = s3;
-                    }
-                }
-                j = 4607182418800017408L;
-                j2 = 4618760256179416344L;
-                s = s2;
-                d3 = d10;
-                double d132 = dArr[i];
-                double d142 = s;
-                Double.isNaN(d142);
-                dArr[i] = d132 + d142;
-                double d152 = dArr[i2];
-                Double.isNaN(d142);
-                dArr[i2] = d152 + d142;
-                i += 2;
-                d6 = d3;
-                length = i3;
-                maxA = s3;
-            }
         }
 
         private short nextUpSample() {
