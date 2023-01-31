@@ -72,7 +72,7 @@ public class SoundPlayer {
 
     public void initAudio() {
         try {
-            this._bufSize = AudioTrack.getMinBufferSize(SAMPLE_RATE, 12, 2);
+            this._bufSize = AudioTrack.getMinBufferSize(SAMPLE_RATE, AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT);
             this._mixer = new Mixer(this._bufSize / 4);
             Log.e("fuck", "" + this._bufSize);
             this._mixer.setRelease(441);
