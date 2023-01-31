@@ -47,7 +47,6 @@ public class SoundPlayer {
 
     public boolean isAnyGeneratorOn() {
         if (this._generators == null) {
-            Log.e("fuck","n16");
             return false;
         }
         int length = this._generators.length;
@@ -74,7 +73,6 @@ public class SoundPlayer {
         try {
             this._bufSize = AudioTrack.getMinBufferSize(SAMPLE_RATE, AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT);
             this._mixer = new Mixer(this._bufSize / 4);
-            Log.e("fuck", "" + this._bufSize);
             this._mixer.setRelease(441);
             this._mixer.setAttack(220);
             createAudioTrack(this._mixer.getBusLen() / 2);
@@ -105,13 +103,10 @@ public class SoundPlayer {
     }
 
     public synchronized void generate() {
-        Log.e("fuck","gg1");
         if (this._audio == null) {
             return;
         }
-        Log.e("fuck","gg299");
         loadAudioBuffer();
-        Log.e("fuck","gg499");
         short[] audio = getAudio();
         this._audio.write(audio, 0, audio.length);
         loadAudioBuffer();
@@ -121,9 +116,7 @@ public class SoundPlayer {
         short[] audio3 = getAudio();
         this._audio.write(audio3, 0, audio3.length);
         this._stoped = false;
-        Log.e("fuck","gg49");
         this._audio.play();
-        Log.e("fuck","gg4");
     }
 
     /* JADX INFO: Access modifiers changed from: private */
@@ -140,7 +133,7 @@ public class SoundPlayer {
         loadAudioBuffer();
         short[] audio4 = getAudio();
         this._audio.write(audio4, 0, audio4.length);
-        Log.e("fuck","n1");
+
 //        if (!isAnyGeneratorOn()) {
 //            Log.e("fuck","n12");
 //            stopPrv();
@@ -158,9 +151,7 @@ public class SoundPlayer {
         this._mixer.clearBus();
         double[] bus = this._mixer.getBus();
         int length = bus.length;
-        Log.e("hh","dada"+length);
         int length2 = this._generators.length;
-        Log.e("hh","dada"+length2);
         int i = 0;
         while (true) {
             int i2 = i + 1;
@@ -198,7 +189,6 @@ public class SoundPlayer {
         this._isPlaying = true;
         this._mixer.start();
         this._thread = new AudioThread();
-        Log.e("fuck","hh1");
         this._thread.start();
     }
 
@@ -638,13 +628,11 @@ public class SoundPlayer {
 
     /* loaded from: classes.dex */
     protected class AudioRunnable implements Runnable {
-        protected AudioRunnable() {
-            Log.e("fuck","gg13");
-        }
+
 
         @Override // java.lang.Runnable
         public void run() {
-            Log.e("fuck","gg12");
+
             SoundPlayer.this.generate();
         }
     }
@@ -653,7 +641,6 @@ public class SoundPlayer {
     protected class AudioThread extends Thread {
         @Override
         public void run() {
-            Log.e("fuck","gg17");
             new AudioRunnable().run();
         }
 
@@ -683,7 +670,6 @@ public class SoundPlayer {
                 Looper.prepare();
                 this._handler = new Handler();
                 SoundPlayer.this.initAudioFeed(this._handler, this._notifyPeriod);
-                Log.e("fuck","Loop");
                 Looper.loop();
             } catch (Throwable unused) {
             }
@@ -693,9 +679,7 @@ public class SoundPlayer {
     /* JADX INFO: Access modifiers changed from: protected */
     /* loaded from: classes.dex */
     public class AudioPosListener implements AudioTrack.OnPlaybackPositionUpdateListener {
-        protected AudioPosListener() {
-            Log.e("fuck","gaga");
-        }
+
 
         @Override // android.media.AudioTrack.OnPlaybackPositionUpdateListener
         public void onMarkerReached(AudioTrack audioTrack) {

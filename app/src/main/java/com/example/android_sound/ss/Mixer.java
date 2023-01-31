@@ -344,7 +344,6 @@ public class Mixer {
         }
         if (d3 > this._maxVal) {
             double d5 = this._maxVal;
-            Double.isNaN(d5);
             double d6 = d5 / d3;
             if (this._maxTrK > d6) {
                 this._maxTrK = d6;
@@ -358,8 +357,6 @@ public class Mixer {
                 } else {
                     double d8 = this._fadeOutCounter;
                     double d9 = this._release;
-                    Double.isNaN(d8);
-                    Double.isNaN(d9);
                     d2 = 1.0d - (d8 / d9);
                 }
                 if (i2 % 2 == 1) {
@@ -372,8 +369,6 @@ public class Mixer {
                 } else {
                     double d10 = this._fadeInCounter;
                     double d11 = this._attack;
-                    Double.isNaN(d10);
-                    Double.isNaN(d11);
                     d7 = d10 / d11;
                 }
                 if (i2 % 2 == 1) {
