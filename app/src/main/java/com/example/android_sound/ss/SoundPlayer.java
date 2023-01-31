@@ -35,6 +35,7 @@ public class SoundPlayer {
     public void createGenertors() {
         this._generators = new Generator[1];
         this._generators[0] = new Generator();
+        this._generators[0].setFrequency(500);
         this._generators[0].setRelease(441);
         this._generators[0].setAttack(220);
     }
@@ -81,6 +82,7 @@ public class SoundPlayer {
     }
 
     protected void initAudioFeed(Handler handler, int i) {
+        Log.e("gaga22","uesss");
         this._audio.setPlaybackPositionUpdateListener(new AudioPosListener(), handler);
         this._audio.setPositionNotificationPeriod(i);
     }
@@ -92,12 +94,22 @@ public class SoundPlayer {
         loadAudioBuffer();
         short[] audio = getAudio();
         this._audio.write(audio, 0, audio.length);
+        loadAudioBuffer();
+        short[] audio2 = getAudio();
+        this._audio.write(audio2, 0, audio2.length);
+        loadAudioBuffer();
+        short[] audio3 = getAudio();
+        this._audio.write(audio3, 0, audio3.length);
+        loadAudioBuffer();
+        short[] audio4 = getAudio();
+        this._audio.write(audio4, 0, audio4.length);
         this._stoped = false;
         this._audio.play();
     }
 
 
     public void feed() {
+        Log.e("gaga22","yes666");
         loadAudioBuffer();
         short[] audio = getAudio();
         this._audio.write(audio, 0, audio.length);
@@ -135,6 +147,7 @@ public class SoundPlayer {
                 }
                 this._framePos++;
                 i += 2;
+                Log.e("fuck",""+i);
             }else{
                 break;
             }
@@ -346,14 +359,9 @@ public class SoundPlayer {
         private short nextSinSample() {
             double d = _volume;
             short s;
-            double d2 = _volume;
-            double d3 = _volume;
             double d4 = this._framePos;
             double sin = Math.sin((d4 * 2.2675736961451248E-5d * 2.0d * 3.141592653589793d * this._frequency) + this._alphaError + this._faze);
-            double d5 = 0.0d;
-            double d6 = 1.0d;
             if (this._modulation != 0.0d) {
-                double d7 = this._frequency;
                 double d8 = (int) (60.0d - (this._modulation * 50.0d));
                 double d9 = 1.0d / d8;
                 double d10 = (int) (sin / d9);
@@ -362,29 +370,9 @@ public class SoundPlayer {
                     sin *= (this._modulation / 2.0d) + 0.5d;
                 }
             }
-            if (this._fadeOut) {
-                if (this._fadeOutCounter >= this._release) {
-                    this._bOn = false;
-                } else {
-                    double d11 = this._fadeOutCounter;
-                    double d12 = this._release;
-                    d5 = 1.0d - (d11 / d12);
-                }
-                this._fadeOutCounter++;
-                s = (short) (d3 * sin * d5);
-            } else if (this._fadeIn) {
-                if (this._fadeInCounter >= this._attack) {
-                    this._fadeIn = false;
-                } else {
-                    double d13 = this._fadeInCounter;
-                    double d14 = this._attack;
-                    d6 = d13 / d14;
-                }
-                this._fadeInCounter++;
-                s = (short) (d2 * sin * d6);
-            } else {
-                s = (short) (d * sin);
-            }
+
+            s = (short) (d * sin);
+
             this._framePos++;
             if (this._changeF) {
                 if (this._frequency <= 10.0d) {
@@ -607,7 +595,7 @@ public class SoundPlayer {
 
         @Override // android.media.AudioTrack.OnPlaybackPositionUpdateListener
         public void onPeriodicNotification(AudioTrack audioTrack) {
-            Log.e("fuck","gagayes778");
+            Log.e("fuck22","gagayes778");
             SoundPlayer.this.feed();
         }
     }
