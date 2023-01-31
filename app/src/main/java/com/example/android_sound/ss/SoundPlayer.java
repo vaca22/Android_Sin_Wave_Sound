@@ -40,7 +40,11 @@ public class SoundPlayer {
         this._generators[0].setAttack(220);
     }
 
+    public Generator getGenerator(int i) {
 
+            return this._generators[0];
+
+    }
 
     public void resetGenerators() {
         try {
