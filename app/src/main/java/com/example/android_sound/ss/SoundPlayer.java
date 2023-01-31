@@ -33,30 +33,13 @@ public class SoundPlayer {
     }
 
     public void createGenertors() {
-        this._generators = new Generator[3];
+        this._generators = new Generator[1];
         this._generators[0] = new Generator();
-        this._generators[1] = new Generator();
-        this._generators[2] = new Generator();
         this._generators[0].setRelease(441);
         this._generators[0].setAttack(220);
-        this._generators[1].setRelease(441);
-        this._generators[1].setAttack(220);
-        this._generators[2].setRelease(441);
-        this._generators[2].setAttack(220);
     }
 
-    public boolean isAnyGeneratorOn() {
-        if (this._generators == null) {
-            return false;
-        }
-        int length = this._generators.length;
-        for (int i = 0; i < length; i++) {
-            if (this._generators[i] != null && this._generators[i]._bOn) {
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     public void resetGenerators() {
         try {
@@ -109,12 +92,6 @@ public class SoundPlayer {
         loadAudioBuffer();
         short[] audio = getAudio();
         this._audio.write(audio, 0, audio.length);
-        loadAudioBuffer();
-        short[] audio2 = getAudio();
-        this._audio.write(audio2, 0, audio2.length);
-        loadAudioBuffer();
-        short[] audio3 = getAudio();
-        this._audio.write(audio3, 0, audio3.length);
         this._stoped = false;
         this._audio.play();
     }
@@ -162,11 +139,9 @@ public class SoundPlayer {
                     double d = bus[i];
                     double d2 = nextSample;
                     double d3 = generator.f72_R;
-                    Double.isNaN(d2);
                     bus[i] = d + (d3 * d2);
                     double d4 = bus[i2];
                     double d5 = generator.f71_L;
-                    Double.isNaN(d2);
                     bus[i2] = d4 + (d2 * d5);
                 }
                 this._framePos++;
@@ -392,17 +367,14 @@ public class SoundPlayer {
             double d3 = _volume;
             short s2 = (short) (this._volume * 32767.0d);
             double d4 = this._framePos;
-            Double.isNaN(d4);
             double sin = Math.sin((d4 * 2.2675736961451248E-5d * 2.0d * 3.141592653589793d * this._frequency) + this._alphaError + this._faze);
             double d5 = 0.0d;
             double d6 = 1.0d;
             if (this._modulation != 0.0d) {
                 double d7 = this._frequency;
                 double d8 = (int) (60.0d - (this._modulation * 50.0d));
-                Double.isNaN(d8);
                 double d9 = 1.0d / d8;
                 double d10 = (int) (sin / d9);
-                Double.isNaN(d10);
                 sin = d10 * d9;
                 if (sin < 0.0d) {
                     sin *= (this._modulation / 2.0d) + 0.5d;
@@ -414,12 +386,9 @@ public class SoundPlayer {
                 } else {
                     double d11 = this._fadeOutCounter;
                     double d12 = this._release;
-                    Double.isNaN(d11);
-                    Double.isNaN(d12);
                     d5 = 1.0d - (d11 / d12);
                 }
                 this._fadeOutCounter++;
-                Double.isNaN(s2);
                 s = (short) (d3 * sin * d5);
             } else if (this._fadeIn) {
                 if (this._fadeInCounter >= this._attack) {
@@ -427,15 +396,11 @@ public class SoundPlayer {
                 } else {
                     double d13 = this._fadeInCounter;
                     double d14 = this._attack;
-                    Double.isNaN(d13);
-                    Double.isNaN(d14);
                     d6 = d13 / d14;
                 }
                 this._fadeInCounter++;
-                Double.isNaN(s2);
                 s = (short) (d2 * sin * d6);
             } else {
-                Double.isNaN(s2);
                 s = (short) (d * sin);
             }
             this._framePos++;
@@ -455,10 +420,8 @@ public class SoundPlayer {
             double d = _volume;
             short s = (short) (this._volume * 32767.0d);
             double d2 = this._framePos;
-            Double.isNaN(d2);
             double d3 = d2 * 2.2675736961451248E-5d;
             double sin = Math.sin((d3 * 2.0d * 3.141592653589793d * this._frequency) + this._alphaError + this._faze);
-            Double.isNaN(s);
             short s2 = (short) (d * sin);
             this._framePos++;
             if (this._changeF) {
@@ -478,8 +441,6 @@ public class SoundPlayer {
                 } else {
                     double d6 = this._fadeOutCounter;
                     double d7 = this._release;
-                    Double.isNaN(d6);
-                    Double.isNaN(d7);
                     d4 = 1.0d - (d6 / d7);
                 }
                 this._fadeOutCounter++;
@@ -495,8 +456,6 @@ public class SoundPlayer {
                 } else {
                     double d8 = this._fadeInCounter;
                     double d9 = this._attack;
-                    Double.isNaN(d8);
-                    Double.isNaN(d9);
                     d5 = d8 / d9;
                 }
                 this._fadeInCounter++;
@@ -509,7 +468,6 @@ public class SoundPlayer {
             } else if (this._modulation != 0.0d) {
                 double d10 = 1.0d / this._frequency;
                 double d11 = (long) (d3 / d10);
-                Double.isNaN(d11);
                 double d12 = d10 / 2.0d;
                 return d3 - (d11 * d10) < d12 + ((this._modulation * d12) / 2.0d) ? s : (short) (-s);
             } else if (sin > DOUBLE_PRECISION) {
@@ -533,12 +491,10 @@ public class SoundPlayer {
             short s2 = (short) (this._volume * 32767.0d);
             double d7 = 1.0d / this._frequency;
             double d8 = this._framePos;
-            Double.isNaN(d8);
             double d9 = d8 * 2.2675736961451248E-5d;
             double sin = Math.sin((d9 * 2.0d * 3.141592653589793d * this._frequency) + this._alphaError);
             double d10 = (d9 / d7) + ((this._faze * d7) / 6.283185307179586d);
             double d11 = (long) d10;
-            Double.isNaN(d11);
             double d12 = d10 - d11;
             if (this._fadeOut) {
                 if (this._fadeOutCounter >= this._release) {
@@ -547,14 +503,10 @@ public class SoundPlayer {
                 } else {
                     double d13 = this._fadeOutCounter;
                     double d14 = this._release;
-                    Double.isNaN(d13);
-                    Double.isNaN(d14);
                     d6 = 1.0d - (d13 / d14);
                 }
                 this._fadeOutCounter++;
                 double d15 = s2;
-                Double.isNaN(d15);
-                Double.isNaN(d15);
                 s = (short) ((((d12 * 2.0d) * d15) - d15) * d6);
             } else if (this._fadeIn) {
                 if (this._fadeInCounter >= this._attack) {
@@ -563,14 +515,10 @@ public class SoundPlayer {
                 } else {
                     double d16 = this._fadeInCounter;
                     double d17 = this._attack;
-                    Double.isNaN(d16);
-                    Double.isNaN(d17);
                     d3 = d16 / d17;
                 }
                 this._fadeInCounter++;
                 double d18 = s2;
-                Double.isNaN(d18);
-                Double.isNaN(d18);
                 s = (short) ((((d12 * 2.0d) * d18) - d18) * d3);
             } else if (this._modulation != 0.0d) {
                 double d19 = d12 / (1.0d - (this._modulation / 2.0d));
@@ -578,19 +526,13 @@ public class SoundPlayer {
                     d = 0.0d;
                 } else {
                     double d20 = s2;
-                    Double.isNaN(d20);
-                    Double.isNaN(d20);
                     d = ((d19 * 2.0d) * d20) - d20;
                 }
                 double d21 = (s2 * 2) / ((int) (26.0d - (this._modulation * 20.0d)));
-                Double.isNaN(d21);
                 d2 = ((int) (d / d21));
-                Double.isNaN(d21);
                 s = (short) (d2 * d21);
             } else {
                 double d22 = s2;
-                Double.isNaN(d22);
-                Double.isNaN(d22);
                 s = (short) (((d12 * 2.0d) * d22) - d22);
             }
             this._framePos++;
@@ -607,8 +549,6 @@ public class SoundPlayer {
                     d4 = ((d9 / d23) + ((this._faze * d23) / 6.283185307179586d));
                     d5 = ((long) ((d9 / d23) + ((this._faze * d23) / 6.283185307179586d)));
                     double d24 = s2;
-                    Double.isNaN(d24);
-                    Double.isNaN(d24);
                     return (short) ((((d4 - d5) * 2.0d) * d24) - d24);
                 } else {
                     return s;
@@ -647,8 +587,7 @@ public class SoundPlayer {
 
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    /* loaded from: classes.dex */
+
     public class FeedThread extends Thread {
         protected Handler _handler = null;
         protected int _notifyPeriod;
@@ -676,8 +615,7 @@ public class SoundPlayer {
         }
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
-    /* loaded from: classes.dex */
+
     public class AudioPosListener implements AudioTrack.OnPlaybackPositionUpdateListener {
 
 
@@ -687,7 +625,7 @@ public class SoundPlayer {
 
         @Override // android.media.AudioTrack.OnPlaybackPositionUpdateListener
         public void onPeriodicNotification(AudioTrack audioTrack) {
-            Log.e("fuck","gagayes");
+            Log.e("fuck","gagayes778");
             SoundPlayer.this.feed();
         }
     }
