@@ -62,53 +62,28 @@ public class Mixer {
         double d;
         double d2;
         int length = this._bus.length;
-        double d3 = 0.0d;
-        for (int i = 0; i < length; i++) {
-            double d4 = this._bus[i];
+        double max = 0.0d;
+        for (double d4 : this._bus) {
             if (d4 > 0.0d) {
-                if (d4 > d3) {
-                    d3 = d4;
+                if (d4 > max) {
+                    max = d4;
                 }
-            } else if (d4 < (-d3)) {
-                d3 = -d4;
+            } else if (d4 < (-max)) {
+                max = -d4;
             }
         }
-        if (d3 > this._maxVal) {
+        if (max > this._maxVal) {
             double d5 = this._maxVal;
-            double d6 = d5 / d3;
+            double d6 = d5 / max;
             if (this._maxTrK > d6) {
                 this._maxTrK = d6;
             }
         }
         for (int i2 = 0; i2 < length; i2++) {
             double d7 = 1.0d;
-            if (this._fadeOut) {
-                if (this._fadeOutCounter >= this._release) {
-                    d2 = 0.0d;
-                } else {
-                    double d8 = this._fadeOutCounter;
-                    double d9 = this._release;
-                    d2 = 1.0d - (d8 / d9);
-                }
-                if (i2 % 2 == 1) {
-                    this._fadeOutCounter++;
-                }
-                d = this._bus[i2] * this._maxTrK * d2;
-            } else if (this._fadeIn) {
-                if (this._fadeInCounter >= this._attack) {
-                    this._fadeIn = false;
-                } else {
-                    double d10 = this._fadeInCounter;
-                    double d11 = this._attack;
-                    d7 = d10 / d11;
-                }
-                if (i2 % 2 == 1) {
-                    this._fadeInCounter++;
-                }
-                d = this._bus[i2] * this._maxTrK * d7;
-            } else {
+
                 d = this._maxTrK * this._bus[i2];
-            }
+
             if (d < (-this._maxVal)) {
                 d = -this._maxVal;
             } else if (d > this._maxVal) {

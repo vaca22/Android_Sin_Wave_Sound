@@ -82,7 +82,6 @@ public class SoundPlayer {
     }
 
     protected void initAudioFeed(Handler handler, int i) {
-        Log.e("gaga22","uesss");
         this._audio.setPlaybackPositionUpdateListener(new AudioPosListener(), handler);
         this._audio.setPositionNotificationPeriod(i);
     }
@@ -93,6 +92,7 @@ public class SoundPlayer {
         }
         loadAudioBuffer();
         short[] audio = getAudio();
+
         this._audio.write(audio, 0, audio.length);
         loadAudioBuffer();
         short[] audio2 = getAudio();
@@ -109,7 +109,6 @@ public class SoundPlayer {
 
 
     public void feed() {
-        Log.e("gaga22","yes666");
         loadAudioBuffer();
         short[] audio = getAudio();
         this._audio.write(audio, 0, audio.length);
@@ -147,11 +146,11 @@ public class SoundPlayer {
                 }
                 this._framePos++;
                 i += 2;
-                Log.e("fuck",""+i);
             }else{
                 break;
             }
         }
+
     }
 
     public void play() {
@@ -357,7 +356,7 @@ public class SoundPlayer {
         }
 
         private short nextSinSample() {
-            double d = _volume;
+            double d = getMaxA();
             short s;
             double d4 = this._framePos;
             double sin = Math.sin((d4 * 2.2675736961451248E-5d * 2.0d * 3.141592653589793d * this._frequency) + this._alphaError + this._faze);
@@ -383,6 +382,7 @@ public class SoundPlayer {
                     changeFrequency(sin);
                 }
             }
+
             return s;
         }
 
@@ -595,7 +595,7 @@ public class SoundPlayer {
 
         @Override // android.media.AudioTrack.OnPlaybackPositionUpdateListener
         public void onPeriodicNotification(AudioTrack audioTrack) {
-            Log.e("fuck22","gagayes778");
+
             SoundPlayer.this.feed();
         }
     }
