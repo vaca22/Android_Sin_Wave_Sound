@@ -305,7 +305,7 @@ public class SoundPlayer {
         public void setFrequency(double d) {
             this._newfrequency = d;
             this._wasNegative = false;
-            double d2 = this._frequency;
+            this._frequency=d;
             this._changeF = true;
         }
 
