@@ -44,8 +44,8 @@ public class SoundPlayer {
     public void resetGenerators() {
         try {
             int length = this._generators.length;
-            for (int i = 0; i < length; i++) {
-                this._generators[i].reset();
+            for (Generator generator : this._generators) {
+                generator.reset();
             }
         } catch (Throwable th) {
             th.printStackTrace();
@@ -96,7 +96,7 @@ public class SoundPlayer {
         this._audio.play();
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
+
     public void feed() {
         loadAudioBuffer();
         short[] audio = getAudio();
@@ -110,14 +110,6 @@ public class SoundPlayer {
         loadAudioBuffer();
         short[] audio4 = getAudio();
         this._audio.write(audio4, 0, audio4.length);
-
-//        if (!isAnyGeneratorOn()) {
-//            Log.e("fuck","n12");
-//            stopPrv();
-//        } else if (this._mixer.isOut()) {
-//            Log.e("fuck","n13");
-//            stopPrv();
-//        }
     }
 
     private short[] getAudio() {
@@ -128,21 +120,18 @@ public class SoundPlayer {
         this._mixer.clearBus();
         double[] bus = this._mixer.getBus();
         int length = bus.length;
-        int length2 = this._generators.length;
         int i = 0;
         while (true) {
             int i2 = i + 1;
             if (i2 < length) {
-                for (int i3 = 0; i3 < length2; i3++) {
-                    Generator generator = this._generators[i3];
+                for (Generator generator : this._generators) {
                     short nextSample = generator.nextSample();
                     double d = bus[i];
-                    double d2 = nextSample;
                     double d3 = generator.f72_R;
-                    bus[i] = d + (d3 * d2);
+                    bus[i] = d + (d3 * (double) nextSample);
                     double d4 = bus[i2];
                     double d5 = generator.f71_L;
-                    bus[i2] = d4 + (d2 * d5);
+                    bus[i2] = d4 + ((double) nextSample * d5);
                 }
                 this._framePos++;
                 i += 2;
@@ -157,7 +146,7 @@ public class SoundPlayer {
         if (this._audio == null) {
             try {
                 createAudioTrack(this._mixer.getBusLen() / 2);
-            } catch (Throwable unused) {
+            } catch (Throwable ignored) {
             }
         }
         this._framePos = 0L;
@@ -167,7 +156,7 @@ public class SoundPlayer {
         this._thread.start();
     }
 
-    public void finalize() {
+    protected void finalize() {
         try {
             if (this._audio == null) {
                 return;
@@ -327,16 +316,10 @@ public class SoundPlayer {
         }
 
         public short nextSample() {
-            if (this._bOn) {
-                if (this._type == 1) {
-                    return nextSquireSample();
-                }
-                if (this._type == 2) {
-                    return nextUpSample();
-                }
+
                 return nextSinSample();
-            }
-            return (short) 0;
+
+
         }
 
         public void setOn(boolean z, long j) {
@@ -365,7 +348,6 @@ public class SoundPlayer {
             short s;
             double d2 = _volume;
             double d3 = _volume;
-            short s2 = (short) (this._volume * 32767.0d);
             double d4 = this._framePos;
             double sin = Math.sin((d4 * 2.2675736961451248E-5d * 2.0d * 3.141592653589793d * this._frequency) + this._alphaError + this._faze);
             double d5 = 0.0d;
